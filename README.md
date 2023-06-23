@@ -129,79 +129,41 @@ As TypeScript code can be compiled to ES5, it includes all of the native JavaScr
 
 ### Basic Assign Types
 
-#### String
-
-> Another fundamental part of creating programs in JavaScript for webpages and servers alike is working with textual data. As in other languages, we use the type string to refer to these textual datatypes. Just like JavaScript, TypeScript also uses double quotes (") or single quotes (') to surround string data.
+#### String, Number, Boolean
 
 ```ts
   const myName: string = 'Robert';
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-#### Number
-
-> As in JavaScript, all numbers in TypeScript are floating point values. These floating point numbers get the type `number`. In addition to hexadecimal and decimal literals, TypeScript also supports binary and octal literals introduced in ECMAScript 2015.
-
-```ts
   const myAge: number = 24;
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-#### Boolean
-
-> The most basic datatype is the simple `true`/`false` value, which JavaScript and TypeScript call a `boolean` value.
-
-```ts
   const bHasHobbies: boolean = true;
 ```
 
-[⬆️ Back to top](#table-of-contents)<br>
-
 #### Array
-
-> TypeScript, like JavaScript, allows you to work with arrays of values. Array types can be written in one of two ways. In the first, you use the type of the elements followed by [] to denote an array of that element type:
 
 ```ts
   const hobbies: string[] = ['Programming', 'Cooking'];
+  const numbers: number[] = [1, 3.22, 6, -1]
+  const numbers = [1, 3.22, 6, -1] // 자동으로 number[] 타입으로 인식된다. 
 ```
 
-If no types are declared, TypeScript will automatically assign a type depending on the types of the Array values.
-
-```ts
-  const numbers = [1, 3.22, 6, -1] // This variable will automatically be assigned a number[] array type.
-```
-
-**Note that declaring types is encouraged**.
-
-[⬆️ Back to top](#table-of-contents)<br>
+**타입을 직접적으로 지정하는 걸 권장**
 
 ### Tuples
 
-> Tuple types allow you to express an array where the type of a fixed number of elements is known, but need not be the same. For example, you may want to represent a value as a pair of a `string` and a `number`:
+> Tuple은 길이와 타입이 고정된 배열
 
 ```ts
   const address: [string, number] = ["Street", 99];
 ```
 
-[⬆️ Back to top](#table-of-contents)<br>
-
 ### Any
-
-> We may need to describe the type of variables that we do not know when we are writing an application. These values may come from dynamic content, e.g. from the user or a 3rd party library. In these cases, we want to opt-out of type-checking and let the values pass through compile-time checks. To do so, we label these with the `any` type:
 
 ```ts
   let myCar: any = 'BMW';
-
   console.log(myCar); // Prints: BMW
 
   myCar = { brand: 'BMW', series: 3 };
-
   console.log(myCar) // Prints: { brand: "BMW", series: 3 }
 ```
-
-[⬆️ Back to top](#table-of-contents)<br>
 
 ### Enums
 
