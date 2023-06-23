@@ -6,130 +6,9 @@
 
 A set of TypeScript related notes used for quick reference. The cheatsheet contains references to types, classes, decorators, and many other TypeScript related subjects.
 
-# Table of contents
-
-- [TypeScript Cheatsheet](#typescript-cheatsheet)
-- [Table of contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Types](#types)
-    - [Basic Assign Types](#basic-assign-types)
-      - [String](#string)
-      - [Number](#number)
-      - [Boolean](#boolean)
-      - [Array](#array)
-    - [Tuples](#tuples)
-    - [Any](#any)
-    - [Enums](#enums)
-    - [Functions](#functions)
-    - [Argument Types](#argument-types)
-    - [Function Types](#function-types)
-    - [Void Function Type](#void-function-type)
-    - [Objects](#objects)
-      - [Complex Objects](#complex-objects)
-      - [Optional object properties](#optional-object-properties)
-    - [Alias](#alias)
-    - [Union](#union)
-    - [Intersection](#intersection)
-    - [Check](#check)
-    - [Never](#never)
-    - [Nullable](#nullable)
-    - [Type Assertions](#type-assertions)
-  - [ES6](#es6)
-    - [Template Literals](#template-literals)
-    - [Arrow Functions](#arrow-functions)
-    - [Default Parameters](#default-parameters)
-    - [Spread Operators](#spread-operators)
-    - [Array Destructuring](#array-destructuring)
-    - [Object Destructuring](#object-destructuring)
-  - [Classes](#classes)
-  - [Private Members](#private-members)
-  - [Class Inheritance](#class-inheritance)
-  - [Getters & Setters](#getters--setters)
-  - [Static Properties & Methods](#static-properties--methods)
-  - [Abstract Classes](#abstract-classes)
-  - [Private Constructors & Singletons](#private-constructors--singletons)
-  - [Modules](#modules)
-    - [Export](#export)
-    - [Default Exports](#default-exports)
-    - [Import](#import)
-    - [Advanced Module Loading](#advanced-module-loading)
-  - [Namespaces](#namespaces)
-  - [Ambient Modules](#ambient-modules)
-    - [Manually declaring a third party library](#manually-declaring-a-third-party-library)
-    - [Using @types/[third-party-library] NPM packages](#using-typesthird-party-library-npm-packages)
-    - [Shorthand for Ambient Modules](#shorthand-for-ambient-modules)
-    - [Wildcard module declarations](#wildcard-module-declarations)
-    - [UMD modules](#umd-modules)
-  - [Interfaces](#interfaces)
-    - [Optional Properties](#optional-properties)
-    - [Index Signatures (Dynamic Property Names)](#index-signatures-dynamic-property-names)
-    - [Implements Keyword](#implements-keyword)
-      - [*1.* Implementing an `interface` to a `Class`](#1-implementing-an-interface-to-a-class)
-      - [*2.* Implementing an `interface` to a `function`](#2-implementing-an-interface-to-a-function)
-    - [Extends Keyword (Interface Inheritance)](#extends-keyword-interface-inheritance)
-  - [`Omit` type when extending an interface](#omit-type-when-extending-an-interface)
-  - [Omitting specific properties when extending an interface](#omitting-specific-properties-when-extending-an-interface)
-  - [Type checking for interfaces](#type-checking-for-interfaces)
-  - [Generics](#generics)
-    - [Simple Generics](#simple-generics)
-    - [Better Generics](#better-generics)
-    - [Built-in Generics](#built-in-generics)
-    - [Generic Types](#generic-types)
-    - [Generic Class](#generic-class)
-  - [Decorators](#decorators)
-    - [Prologue](#prologue)
-    - [Decorators Introduction](#decorators-introduction)
-    - [Basic Decorator](#basic-decorator)
-    - [Factory](#factory)
-    - [Advanced Decorator](#advanced-decorator)
-    - [Method Decorator](#method-decorator)
-    - [Property Decorator](#property-decorator)
-    - [Parameter Decorator](#parameter-decorator)
-  - [Webpack Workflow (v^4.X)](#webpack-workflow-v4x)
-  - [TypeScript with React.js](#typescript-with-reactjs)
-    - [TypeScript while using `create-react-app`](#typescript-while-using-create-react-app)
-  - [Setting up general React prop types](#setting-up-general-react-prop-types)
-    - [References (`React.createRef()` or `useRef` API)](#references-reactcreateref-or-useref-api)
-    - [React Children](#react-children)
-    - [CSS Properties and Classes Prop Types](#css-properties-and-classes-prop-types)
-    - [General Prop Types (e.g. HTML 5 props, event listeners etc.)](#general-prop-types-eg-html-5-props-event-listeners-etc)
-  - [Setting up React References (React.createRef() or useRef API)](#setting-up-react-references-reactcreateref-or-useref-api)
-    - [TypeScript & useRef](#typescript--useref)
-    - [TypeScript & React.createRef](#typescript--reactcreateref)
-  - [Setting up Event Handlers](#setting-up-event-handlers)
-  - [TypeScript and React Hooks](#typescript-and-react-hooks)
-    - [useState](#usestate)
-    - [useEffect](#useeffect)
-    - [useContext](#usecontext)
-    - [useReducer](#usereducer)
-    - [useCallback](#usecallback)
-    - [useMemo](#usememo)
-    - [useRef](#useref)
-    - [useImperativeHandle](#useimperativehandle)
-    - [useLayoutEffect](#uselayouteffect)
-    - [useDebugValue](#usedebugvalue)
-    - [Custom Hooks](#custom-hooks)
-  - [Feedback](#feedback)
-  - [Collaborators](#collaborators)
-  - [Contribute](#contribute)
-
----
-
-## Introduction
-
-TypeScript is a very powerful addition to JavaScript. TypeScript is developed by Microsoft and is increasingly supported by the day  by technologies such as Angular, Vue.js 3, React.js, and many others.
-
-As TypeScript code can be compiled to ES5, it includes all of the native JavaScript features such as spread arrow function, deconstructors, and introduces some **very** useful features such as decorators, generics and interfaces, enums, modules, among others which can be found in different programming languages.
-
-[⬆️ Back to top](#table-of-contents)<br>
-
----
-
 ## Types
 
-### Basic Assign Types
-
-#### String, Number, Boolean
+### String, Number, Boolean
 
 ```ts
   const myName: string = 'Robert';
@@ -137,7 +16,7 @@ As TypeScript code can be compiled to ES5, it includes all of the native JavaScr
   const bHasHobbies: boolean = true;
 ```
 
-#### Array
+### Array
 
 ```ts
   const hobbies: string[] = ['Programming', 'Cooking'];
@@ -183,7 +62,9 @@ By default, any `enum` will begin numbering their members starting at 0. You can
   console.log(myColor); // Prints: 100
 ```
 
-[⬆️ Back to top](#table-of-contents)<br>
+
+
+---
 
 ### Functions
 
