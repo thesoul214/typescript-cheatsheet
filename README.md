@@ -18,13 +18,22 @@ A set of TypeScript related notes used for quick reference. The cheatsheet conta
 
 ### Array
 
+> 타입을 직접적으로 지정하는 걸 권장
+
 ```ts
   const hobbies: string[] = ["Programming", "Cooking"];
   const numbers: number[] = [1, 3.22, 6, -1]
+  // const numbers: Array<number> 배열의 다른 선언 방식
+
+  // 다차원 배열
+  const board: string[][] = [
+    ["X", "O", "X"],
+    ["X", "O", "X"],
+    ["X", "O", "X"],
+  ];
+
   const numbers = [1, 3.22, 6, -1] // 자동으로 number[] 타입으로 인식된다. 
 ```
-
-**타입을 직접적으로 지정하는 걸 권장**
 
 ### Tuples
 
@@ -43,6 +52,95 @@ A set of TypeScript related notes used for quick reference. The cheatsheet conta
   myCar = { brand: "BMW", series: 3 };
   console.log(myCar) // Prints: { brand: "BMW", series: 3 }
 ```
+
+### Object
+
+> key, value로 구성된다.
+
+기본 구성
+```ts
+  const dog = {
+    name: "Elton",
+    breed: "Australian Shepehrd",
+    age: 0.5
+  }
+```
+
+흔히 type과 같이 사용한다.
+```ts
+  type Point = {
+    x: number;
+    y: number;
+    z?: number; // optional key
+    readonly dimension: number; // read only key
+  };
+
+  const myPoint1: Point = { x: 1, y: 3, dimension: 2 };
+  const myPoint2: Point = { x: 1, y: 3, z: 6, dimension: 3 };
+  const myPoint3: Point = { x: 1, y: 3, dimension: 2 };
+  
+  console.log(myPoint3.dimension): // OK
+  myPoint3.dimension = 3; // Error
+```
+
+nested object
+```ts
+  type Song = {
+    title: string;
+    artist: string;
+    numStreams: number;
+    credits: { producer: string; writer: string };
+  };
+
+  const mySong: Song = {
+    title: "Unchained Melody",
+    artist: "Righteous Brothers",
+    numStreams: 12873321,
+    credits: {
+      producer: "Phil Spector",
+      writer: "Alex North",
+    },
+  };
+```
+
+교차 타입
+```ts
+  type Circle = {
+    radius: number;
+  };
+
+  type Colorful = {
+    color: string;
+  };
+
+  type ColorfulCircle = Circle & Colorful;
+
+  const happyFace: ColorfulCircle = {
+    radius: 4, // Circle type
+    color: "yellow", // Colorful type
+  };
+
+  // 새로운 타입을 인라인으로 정의(age)
+  type Cat = {
+    numLives: number;
+  };
+
+  type Dog = {
+    breed: string;
+  };
+
+  type CatDog = Cat &
+    Dog & {
+      age: number;
+    };
+
+  const christy: CatDog = {
+    numLives: 7,
+    breed: "Husky",
+    age: 9,
+  };
+```
+
 
 ### Enums
 
@@ -64,7 +162,7 @@ By default, any `enum` will begin numbering their members starting at 0. You can
 
 ## Functions
 
-### 함수 파라미터
+### 파라미터
 
 ```ts
   function greet(person: string) {
