@@ -141,8 +141,9 @@ const christy: CatDog = {
 };
 ```
 
+### Union(to do)
 
-### Enums
+### Enums(to do)
 
 > A helpful addition to the standard set of datatypes from JavaScript is the enum. As in languages like C#, an enum is a way of giving more friendly names to sets of numeric values.
 By default, any `enum` will begin numbering their members starting at 0. You can change this by manually setting the value of one of its members. For example, we can modify the Green value to 100, the next will be 101, then set Yellow back to 2.
@@ -160,7 +161,7 @@ By default, any `enum` will begin numbering their members starting at 0. You can
   console.log(myColor); // Prints: 100
 ```
 
-## Functions
+## Functions(to do)
 
 ### 파라미터
 
