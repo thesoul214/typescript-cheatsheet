@@ -11,9 +11,9 @@ A set of TypeScript related notes used for quick reference. The cheatsheet conta
 ### String, Number, Boolean
 
 ```ts
-  const myName: string = "Robert";
-  const myAge: number = 24;
-  const bHasHobbies: boolean = true;
+const myName: string = "Robert";
+const myAge: number = 24;
+const bHasHobbies: boolean = true;
 ```
 
 ### Array
@@ -21,18 +21,18 @@ A set of TypeScript related notes used for quick reference. The cheatsheet conta
 > 타입을 직접적으로 지정하는 걸 권장
 
 ```ts
-  const hobbies: string[] = ["Programming", "Cooking"];
-  const numbers: number[] = [1, 3.22, 6, -1]
-  // const numbers: Array<number> 배열의 다른 선언 방식
+const hobbies: string[] = ["Programming", "Cooking"];
+const numbers: number[] = [1, 3.22, 6, -1]
+// const numbers: Array<number> 배열의 다른 선언 방식
 
-  // 다차원 배열
-  const board: string[][] = [
-    ["X", "O", "X"],
-    ["X", "O", "X"],
-    ["X", "O", "X"],
-  ];
+// 다차원 배열
+const board: string[][] = [
+  ["X", "O", "X"],
+  ["X", "O", "X"],
+  ["X", "O", "X"],
+];
 
-  const numbers = [1, 3.22, 6, -1] // 자동으로 number[] 타입으로 인식된다. 
+const numbers = [1, 3.22, 6, -1] // 자동으로 number[] 타입으로 인식된다. 
 ```
 
 ### Tuples
@@ -40,17 +40,17 @@ A set of TypeScript related notes used for quick reference. The cheatsheet conta
 > Tuple은 길이와 타입이 고정된 배열
 
 ```ts
-  const address: [string, number] = ["Street", 99];
+const address: [string, number] = ["Street", 99];
 ```
 
 ### Any
 
 ```ts
-  let myCar: any = "BMW";
-  console.log(myCar); // Prints: BMW
+let myCar: any = "BMW";
+console.log(myCar); // Prints: BMW
 
-  myCar = { brand: "BMW", series: 3 };
-  console.log(myCar) // Prints: { brand: "BMW", series: 3 }
+myCar = { brand: "BMW", series: 3 };
+console.log(myCar) // Prints: { brand: "BMW", series: 3 }
 ```
 
 ### Object
@@ -59,86 +59,86 @@ A set of TypeScript related notes used for quick reference. The cheatsheet conta
 
 기본 구성
 ```ts
-  const dog = {
-    name: "Elton",
-    breed: "Australian Shepehrd",
-    age: 0.5
-  }
+const dog = {
+  name: "Elton",
+  breed: "Australian Shepehrd",
+  age: 0.5
+}
 ```
 
 흔히 type과 같이 사용한다.
 ```ts
-  type Point = {
-    x: number;
-    y: number;
-    z?: number; // optional key
-    readonly dimension: number; // read only key
-  };
+type Point = {
+  x: number;
+  y: number;
+  z?: number; // optional key
+  readonly dimension: number; // read only key
+};
 
-  const myPoint1: Point = { x: 1, y: 3, dimension: 2 };
-  const myPoint2: Point = { x: 1, y: 3, z: 6, dimension: 3 };
-  const myPoint3: Point = { x: 1, y: 3, dimension: 2 };
-  
-  console.log(myPoint3.dimension): // OK
-  myPoint3.dimension = 3; // Error
+const myPoint1: Point = { x: 1, y: 3, dimension: 2 };
+const myPoint2: Point = { x: 1, y: 3, z: 6, dimension: 3 };
+const myPoint3: Point = { x: 1, y: 3, dimension: 2 };
+
+console.log(myPoint3.dimension): // OK
+myPoint3.dimension = 3; // Error
 ```
 
 nested object
 ```ts
-  type Song = {
-    title: string;
-    artist: string;
-    numStreams: number;
-    credits: { producer: string; writer: string };
-  };
+type Song = {
+  title: string;
+  artist: string;
+  numStreams: number;
+  credits: { producer: string; writer: string };
+};
 
-  const mySong: Song = {
-    title: "Unchained Melody",
-    artist: "Righteous Brothers",
-    numStreams: 12873321,
-    credits: {
-      producer: "Phil Spector",
-      writer: "Alex North",
-    },
-  };
+const mySong: Song = {
+  title: "Unchained Melody",
+  artist: "Righteous Brothers",
+  numStreams: 12873321,
+  credits: {
+    producer: "Phil Spector",
+    writer: "Alex North",
+  },
+};
 ```
 
 교차 타입
 ```ts
-  type Circle = {
-    radius: number;
+type Circle = {
+  radius: number;
+};
+
+type Colorful = {
+  color: string;
+};
+
+type ColorfulCircle = Circle & Colorful;
+
+const happyFace: ColorfulCircle = {
+  radius: 4, // Circle type
+  color: "yellow", // Colorful type
+};
+
+// 새로운 타입을 인라인으로 정의(age)
+type Cat = {
+  numLives: number;
+};
+
+type Dog = {
+  breed: string;
+};
+
+type CatDog = Cat &
+  Dog & {
+    age: number;
   };
 
-  type Colorful = {
-    color: string;
-  };
-
-  type ColorfulCircle = Circle & Colorful;
-
-  const happyFace: ColorfulCircle = {
-    radius: 4, // Circle type
-    color: "yellow", // Colorful type
-  };
-
-  // 새로운 타입을 인라인으로 정의(age)
-  type Cat = {
-    numLives: number;
-  };
-
-  type Dog = {
-    breed: string;
-  };
-
-  type CatDog = Cat &
-    Dog & {
-      age: number;
-    };
-
-  const christy: CatDog = {
-    numLives: 7,
-    breed: "Husky",
-    age: 9,
-  };
+const christy: CatDog = {
+  numLives: 7,
+  breed: "Husky",
+  age: 9,
+};
 ```
 
 
