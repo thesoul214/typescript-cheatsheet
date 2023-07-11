@@ -192,7 +192,7 @@ enum Color {
 const myColor: Color = Color.Green
 console.log(myColor); // Prints: 100
 
-  // String Enum:
+// String Enum:
 enum ArrowKeys {
   UP = "up",
   DOWN = "down",
@@ -228,9 +228,11 @@ const add = (x: number, y: number): number => {
 
 // Contextual Type Clues
 const colors = ["red", "orange", "yellow"];
-colors.map((color) => {
+let new_color = colors.map((color) => {
   return color.toUpperCase();
 });
+
+console.log(new_color) // prints ["RED", "ORANGE", "YELLOW"] 
 ```
 
 리턴 타입
