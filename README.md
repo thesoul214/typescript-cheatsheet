@@ -141,82 +141,119 @@ const christy: CatDog = {
 };
 ```
 
-### Union(to do)
-Variables are not restricted to only one assigned type. This is where union types come in where we can assign two or more types (e.g. assign `number` and `string`) to a single variable. For example:
+### Union
 
-### Enums(to do)
-
-> A helpful addition to the standard set of datatypes from JavaScript is the enum. As in languages like C#, an enum is a way of giving more friendly names to sets of numeric values.
-By default, any `enum` will begin numbering their members starting at 0. You can change this by manually setting the value of one of its members. For example, we can modify the Green value to 100, the next will be 101, then set Yellow back to 2.
+> 하나의 변수에 복수의 타입을 선언할 수 있다.
 
 ```ts
-  enum Color {
-    Gray, // 0
-    Red, // 1
-    Green = 100, // 100
-    Blue, // 101
-    Yellow = 2 // 2
-  }
+let age: number | string = 21;
+age = 23;
+age = "24";
 
-  const myColor: Color = Color.Green
-  console.log(myColor); // Prints: 100
+// 타입과 함께 쓰는 것도 가능
+type Point = {
+  x: number;
+  y: number;
+};
+
+type Loc = {
+  lat: number;
+  long: number;
+};
+
+let coordinates: Point | Loc = { x: 1, y: 34 };
+coordinates = { lat: 321.213, long: 23.334 };
+
+// 리터럴 타입과 함께 쓰는 것도 가능
+type DayOfWeek =
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday";
+
+let today: DayOfWeek = "Sunday";
+today = "Everyday"; // Error
 ```
 
-## Functions(to do)
-
-### 파라미터
+### Enums
 
 ```ts
-  function greet(person: string) {
-    return `Hello, ${person}!`;
-  }
-  greet("Kim")
+enum Color {
+  Gray, // 0
+  Red, // 1
+  Green = 100, // 100
+  Blue, // 101
+  Yellow = 2 // 2
+}
 
-  function greet(person: string, age: number) {
-    return `Hello, ${person}! I am ${age} years old`;
-  }
-  greet("Kim", 35)
+const myColor: Color = Color.Green
+console.log(myColor); // Prints: 100
 
-  // 파라미터에 기본값 설정
-  function greet(person: string = "kim", age: number = 35) {
-    return `Hello, ${person}! I am ${age} years old`;
-  }
-  greet()
-  greet("Kim")
-  greet("Kim", 40)
+  // String Enum:
+enum ArrowKeys {
+  UP = "up",
+  DOWN = "down",
+  LEFT = "left",
+  RIGHT = "right",
+}
 ```
 
-### Function Types
-
-Just like the argument, the **return value** of a function may be assigned a type. Consider the example above to be included into the example below:
+## Functions
 
 ```ts
-  const myMultiply: (val1: number, val2: number) => number;
-  // myMultiply = sayHello; // Not possible.
-  // myMultiply(); // Not possible.
-  myMultiply = multiply;
+// 파라미터 type annotation
+function greet(person: string, age: number) {
+  return `Hello, ${person}! I am ${age} years old`;
+}
+greet("Kim", 35)
 
-  console.log(myMultiply(5, 2));
+// 파라미터에 기본값 설정
+function greet(person: string = "kim", age: number = 35) {
+  return `Hello, ${person}! I am ${age} years old`;
+}
+greet();
+greet("Kim");
+greet("Kim", 40);
 ```
 
-[⬆️ Back to top](#table-of-contents)<br>
+다른 선언 방식
+```ts
+// Arrow function:
+const add = (x: number, y: number): number => {
+  return x + y;
+};
 
-### Void Function Type
+// Contextual Type Clues
+const colors = ["red", "orange", "yellow"];
+colors.map((color) => {
+  return color.toUpperCase();
+});
+```
 
-> The type `void` is a little like the opposite of `any`: the absence of having any type at all. You may commonly see this as the return type of functions that do not return a value:
+리턴 타입
 
 ```ts
-  function sayHello(): void {
-    console.log("Hello!");
-    // return myName; // Not possible because the function can"t return anything due to the void assigned type (more on this below).
-  }
+// 리턴 타입 설정
+function greet(person: string = "stranger"): string {
+  return `Hi there, ${person}!`;
+}
+
+// Void 리턴 타입 : 함수의 리턴값이 없는 경우 사용
+function printTwice(msg: string): void {
+  console.log(msg);
+  console.log(msg);
+}
+
+// Never 리턴 타입 : 함수를 호출한 곳에 리턴값을 돌려주지 않는 경우 사용
+function makeError(msg: string): never {
+  throw new Error(msg);
+}
 ```
 
-> Declaring variables of type `void` is not useful because you can only assign `undefined` or `null` to them:
-
-```ts
-  let unusable: void = undefined;
-```
+------upto here
 
 ### Intersection
 
