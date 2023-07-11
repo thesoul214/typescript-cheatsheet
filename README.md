@@ -103,7 +103,7 @@ const mySong: Song = {
 };
 ```
 
-교차 타입
+교차 타입(intersection)
 ```ts
 type Circle = {
   radius: number;
