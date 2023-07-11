@@ -255,6 +255,74 @@ function makeError(msg: string): never {
 }
 ```
 
+## Interfaces
+
+> Type과 거의 비슷한 문법으로 구성된다.
+
+```ts
+// type Point = {
+//   x: number,
+//   y: number
+// }
+// 위의 type과 거의 비슷한 문법(=을 사용하지 않음)
+interface Point {
+  x: number;
+  y: number;
+}
+const pt: Point = { x: 123, y: 1234 };
+```
+
+인터페이스내에 메소드 정의하기
+```ts
+// 파라미터는 받지 않고 string을 리턴하는 메소드(sayHi)
+interface Person {
+  readonly id: number;
+  first: string;
+  last: string;
+  nickname?: string;
+  sayHi(): string;
+  // 메소드는 아래의 문법으로도 정의 가능
+  // sayHi: () => string;
+}
+
+const thomas: Person = {
+  first: "Thomas",
+  last: "Hardy",
+  nickname: "Tom",
+  id: 21837,
+  sayHi: () => {
+    return "Hello!";
+  },
+};
+
+// number를 파라미터로 받고 number를 리턴하는 메소드(applyDiscount)
+interface Product {
+  name: string;
+  price: number;
+  applyDiscount(discount: number): number;
+}
+
+const shoes: Product = {
+  name: "Blue Suede Shoes",
+  price: 100,
+  // 파라미터명을 discount로 하지 않아도 된다.
+  applyDiscount(amount: number) {
+    // this.price는 위에 정의한 price: 100을 가리킨다.
+    const newPrice = this.price * (1 - amount);
+    this.price = newPrice;
+    return this.price;
+  },
+};
+
+console.log(shoes.applyDiscount(0.4)); // prints 60
+```
+
+
+
+
+
+
+
 ------upto here
 
 ### Intersection
