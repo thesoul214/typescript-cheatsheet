@@ -317,6 +317,72 @@ const shoes: Product = {
 console.log(shoes.applyDiscount(0.4)); // prints 60
 ```
 
+> 인터페이스내 특징 1 : 다시 열기
+* type의 경우 같은 기능을 교차 타입(intersection) 으로 구현가능하다
+```ts
+// Re-open an interface
+interface Dog {
+  name: string;
+  age: number;
+}
+
+// 위에서 선언한 인터페이스를 다시 선언해도 새로 정의되거나 덮어 씌워지지 않는다.
+interface Dog {
+  breed: string;
+  bark(): string;
+}
+
+const elton: Dog = {
+  name: "Elton",
+  age: 0.5,
+  breed: "Australian Shepherd",
+  bark() {
+    return "WOOF WOOF!";
+  },
+};
+```
+
+> 인터페이스내 특징 2 : 상속(extends)
+```ts
+// 기존 dog의 속성 + 새로운 속성(job)을 정의
+interface ServiceDog extends Dog {
+  job: "drug sniffer" | "bomb" | "guide dog";
+}
+
+const chewy: ServiceDog = {
+  name: "Chewy",
+  age: 4.5,
+  breed: "Lab",
+  bark() {
+    return "Bark!";
+  },
+  job: "guide dog"
+};
+
+// 다중 상속도 가능하다
+interface Human {
+  name: string;
+}
+
+interface Employee {
+  readonly id: number;
+  email: string;
+}
+
+// Extending multiple interfaces
+interface Engineer extends Human, Employee {
+  level: string;
+  languages: string[];
+}
+
+const pierre: Engineer = {
+  name: "Pierre",
+  id: 123897,
+  email: "pierre@gmail.com",
+  level: "senior",
+  languages: ["JS", "Python"]
+};
+```
 
 
 
@@ -324,211 +390,6 @@ console.log(shoes.applyDiscount(0.4)); // prints 60
 
 
 ------upto here
-
-### Intersection
-
-Intersection types are similar to union types (and similar to the `extend` keyword pattern, which is explained further down), but arguably less common (yet, at least equally useful). Before we get into what an intersection type is, I must mention that in the [TypeScript official documentation about the intersection types](https://www.typescriptlang.org/docs/handbook/advanced-types.html), they are showcased first and *before* the union types, however in this guide I will mention them *after* the union types because they have a bit of a more abstract definition.
-
-Since it"s a rather abstract concept, to give you an idea of what an intersection type is, think of the famous `React.js` package, `react-redux`, and its [`compose` function](https://redux.js.org/api/compose). A [brief look of the code snippet](https://github.com/reduxjs/redux/blob/c43fc3a7c7048c0dba614bc6fbea1b22740d5176/src/compose.ts) will show us how all of the arguments of the `compose` function are *mixed* into one single `function`. This is essentially what the the intersection types do, they *mix* an N number of types to create a new one, so long as they are compatible.
-
-In TypeScript, an intersection type is simply a mix (more commonly referred to as a ***mixin***) between two or more types.
-
-**Note however, that this does not mean that you can freely use intersection types anywhere**. For example, this simple declaration will make the compiler throw an error:
-
-```ts
-let stringAndNumber: string & number = 5;
-```
-
-The reason is because `5` is not assignable to type `string`. And that is because `5` is of type `number`, the types `number` and `string` are structuraly **incompatible**.
-
-Without getting too much into it, the way TypeScript compares types is based on their members. Since at least 1 of the members between the types `string` and `number` clash, the intersection of these types is not possible.
-
-**That** is the limitation of the intersection types. The intersected types *must* be compatible, by this, I mean that **their properties must not overlap each other**. If this condition is met, **the resulting type will have access to all properties**.
-
-Because of the previously mentioned limitation, intersection types are less common than union types, they would be *very* hard to use on variables with "basic" levels of types. Fortunately for us, by using `interfaces` ([explained here](#interfaces)) (and other advanced types), intersection types become ***very*** useful. Let"s take a look at a more advanced example (which assumes the reader has at least basic knowledge of interfaces):
-
-```ts
-interface Loggable {
-    log(name: string, age: number): void
-}
-
-interface Person {
-    name: string
-    age: number
-    isStark?: boolean // May be undefined.
-}
-
-type LoggablePerson = Loggable & Person;
-
-const logPerson:(name: string, age: number) => void = (name, age) => {
-    console.log(`I am ${name}, and I am ${age} years old.`)
-}
-
-const jonSnow: LoggablePerson = {
-    name: "Jon Snow",
-    age: 23,
-    log: logPerson
-}
-
-console.log("jonSnow.name ->", jonSnow.name); // Prints: "Jon Snow"
-console.log("jonSnow.age ->", jonSnow.age); // Prints: 23
-console.log("jonSnow.isStark ->", jonSnow.isStark); // Prints: undefined
-console.log(
-    "jonSnow.log(jonSnow.name, jonSnow.age) ->",
-    jonSnow.log(jonSnow.name, jonSnow.age)
-); // Prints: I am Jon Snow, and I am 23 years old.
-```
-
-**NOTE:** If you want to mix **members** (not types) of a `class`, you should use the `extend` keyword instead, [explained here](#extends-keyword-interface-inheritance).
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Check
-
-Programmatically checking for types work exactly as it works in JavaScript:
-
-```ts
-  let finalValue = "A string";
-  if (typeof finalValue == "string") {
-    console.log("finalValue is a string");
-  }
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Never
-
-> The `never` type represents the type of values that never occur. For instance, `never` is the return type for a function expression or an arrow function expression **that always throws an exception or one that never returns**; Variables also acquire the type `never` when narrowed by any type guards that can never be true.
-
-```ts
-  function neverReturns(): never {
-    throw new Error("An error!");
-  }
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Nullable
-
-> In TypeScript, both `undefined` and `null` actually have their own types named `undefined` and `null` respectively. Much like `void`, they’re not extremely useful on their own:
-
-```ts
-  let canBeNull: null | number = 12;
-
-  canBeNull = null;
-  let canAlsoBeNull;
-  canAlsoBeNull = null;
-  let canThisBeAny = null;
-  canThisBeAny = 12;
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Type Assertions
-
-> Sometimes you’ll end up in a situation where you’ll know more about a value than TypeScript does. Usually this will happen when you know the type of some entity could be more specific than its current type.
-> Type assertions are a way to tell the compiler “trust me, I know what I’m doing”. A type assertion is like a type cast in other languages, but performs no special checking or restructuring of data. It has no runtime impact, and is used purely by the compiler. TypeScript assumes that you, the programmer, have performed any special checks that you need.
-
-Type assertions have two forms. One is the “angle-bracket” syntax, which is fine, except for JSX (read React) code because JSX works with angle-bracket syntax itself:
-
-```ts
-  const someValue: any = "this is a string";
-  const strLength: number = (<string>someValue).length;
-```
-
-And the other is the one used with JSX, namely the `as`-syntax:
-
-```ts
-  const someValue: any = "this is a string";
-  const strLength: number = (someValue as string).length;
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
----
-
-## ES6
-
-TypeScript natively supports the newer ES6 (A.K.A. ECMAScript 6 and ECMAScript 2015) JavaScript features. As you may have guessed, we can assign types to these new features (e.g. assigning types to an arrow function). Here are some examples:
-
-### Template Literals
-
-```ts
-  const userName = "Robert";
-  const greeting = `Hello I'm ${userName}`;
-
-  console.log(greeting)
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Arrow Functions
-
-Arrow function arguments can be assigned any type.
-
-```ts
-  const greet = (name: string = "Robert") => console.log(`Hello, ${name}`);
-
-  greet("Robert Molina");
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Default Parameters
-
-Arrow functions may also be defined with default argument values in case no respective arguments were passed, these default parameters may also be of any assigned type.
-
-```ts
-  const greet = (name: string = "Robert") => console.log(`Hello, ${name}`);
-
-  greet(); // Prints: "Robert"
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Spread Operators
-
-> Spread syntax allows an iterable such as an array expression or string to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected, or an object expression to be expanded in places where zero or more key-value pairs (for object literals) are expected.
-
-```ts
-  const numbers: number[] = [-3, 33, 38, 5];
-
-  console.log(Math.min(...numbers));
-
-  const newArray: number[] = [55, 20, ...numbers];
-
-  console.log(newArray);
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Array Destructuring
-
-Arrays may also be destructured in TypeScript, keep in mind that all the assigned types to the array values won"t be lost when destructured.
-
-```ts
-  const testResults: number[] = [3.89, 2.99, 1.38];
-  const [result1, result2, result3] = testResults;
-
-  console.log(result1, result2, result3);
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-### Object Destructuring
-
-Just like arrays, the destructured object value pairs will keep their previously assigned types. Keep in mind that when destructuring an object, the declared variable name **must** match the object key to let the compiler know which variable to destructure.
-
-```ts
-  const scientist: { firstName: string, experience: number } = { firstName: "Robert", experience: 9000 };
-  const { firstName, experience } = scientist;
-
-  console.log(firstName, experience);
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
----
 
 ## Classes
 
