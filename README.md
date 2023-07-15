@@ -201,7 +201,7 @@ enum ArrowKeys {
 }
 ```
 
-## Functions
+### Functions
 
 ```ts
 // 파라미터 type annotation
@@ -255,7 +255,7 @@ function makeError(msg: string): never {
 }
 ```
 
-## Interfaces
+### Interfaces
 
 > Type과 거의 비슷한 문법으로 구성된다.
 
@@ -384,12 +384,24 @@ const pierre: Engineer = {
 };
 ```
 
+## Dom 다루기
+
+### non-null 단언 연산자(!)
+
+### type assertion 타입 단언
+
+### 이벤트 다루기
+
 
 
 
 
 
 ------upto here
+
+
+
+
 
 ## Classes
 
