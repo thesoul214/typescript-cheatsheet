@@ -342,7 +342,7 @@ const elton: Dog = {
 };
 ```
 
-> 인터페이스내 특징 2 : 상속(extends)
+> 인터페이스내 특징 2 : 확장(extends)
 ```ts
 // 기존 dog의 속성 + 새로운 속성(job)을 정의
 interface ServiceDog extends Dog {
@@ -359,7 +359,7 @@ const chewy: ServiceDog = {
   job: "guide dog"
 };
 
-// 다중 상속도 가능하다
+// 다중 확장도 가능하다
 interface Human {
   name: string;
 }
