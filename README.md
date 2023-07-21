@@ -403,7 +403,7 @@ btn?.addEventListener("click", function () {
 ```
 
 ### non-null 단언 연산자(!)
-> ts의 기능으로써, 값이 확실하게 존재하고 null이 아닌 경우에만 사용해야 함
+> ts의 기능으로, 값이 확실하게 존재하고 null이 아닌 경우에만 사용해야 함
 ```ts
 // !를 추가하여 절대 null이 되지 않는다고 ts에 약속한다.
 const btn = document.getElementById("btn")!;
