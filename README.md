@@ -435,7 +435,7 @@ public 제어자 : 클래스 내부, 외부에서 접근할 수 있는 프로퍼
 private 제어자 : 클래스 내부에서만 접근할 수 있는 프로퍼티나 메소드를 선언할 때 사용한다.
 
 ```ts
-Class Player {
+class Player {
   public readonly first: string;
   public last: string;
   private score: number = 0;
