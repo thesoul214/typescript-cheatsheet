@@ -426,22 +426,44 @@ const input = document.getElementById("myInput")! as HTMLInputElement;
 input.value = "aaa";
 ```
 
+## Classes
+
+### public, private 제어자
+
+public 제어자 : 클래스 내부, 외부에서 접근할 수 있는 프로퍼티나 메소드를 선언할 때 사용한다.
+
+private 제어자 : 클래스 내부에서만 접근할 수 있는 프로퍼티나 메소드를 선언할 때 사용한다.
+
+```ts
+Class Player {
+  public readonly first: string;
+  public last: string;
+  private score: number = 0;
+
+  constructor(first: string, last: string){
+    this.first = first;
+    this.last = last;
+  }
+
+  private secretMethod(): void {
+    console.log("secretMethod");
+  }
+}
+
+const player1 = new Player("Elton", "Steele");
+
+console.log(player1.first); // prints Elton
+player1.first = "kim"; // readonly이므로 에러!!
+
+console.log(player1.last); // prints Steele
+player1.last = "kim"; // 에러 발생하지 않음
+
+player1.score; // score는 private 프로퍼티로 클래스 외부에서는 접근 불가하므로 에러!!
+player1.secretMethod(); // secretMethod는 private 메소드로 클래스 외부에서는 접근 불가하므로 에러!!
+```
 
 
 ------upto here
-
-
-
-
-
-## Classes
-
-> Traditional JavaScript uses functions and prototype-based inheritance to build up reusable components, but this may feel a bit awkward to programmers more comfortable with an object-oriented approach, where classes inherit functionality and objects are built from these classes. In TypeScript, we allow developers to use these techniques now, and compile them down to JavaScript that works across all major browsers and platforms, without having to wait for the next version of JavaScript.
-
-TypeScript offers `public`, `private`, and protected modifiers to every class member variable. Unlike `C#` which requires that each member be explicitly labeled `public`, In TypeScript, each member is `public` by default.
-
-**You may still mark a member public explicitly. For example:**
-
 ```ts
   class Person {
     private type: string | null = null;
