@@ -386,14 +386,45 @@ const pierre: Engineer = {
 
 ## Dom 다루기
 
+### null 처리
+```ts
+// getElementById은 HtmlElement | null을 반환한다.
+const btn = document.getElementById("btn");
+
+// btn이 null이 될 수 있으므로 ts에서 밑의 코드는 에러가 발생한다.
+btn.addEventListener("click", function () {
+  console.log("clicked!!!");
+});
+
+// ?를 추가하여 btn이 존재하지 않는 경우 실행되지 않도록 처리
+btn?.addEventListener("click", function () {
+  console.log("clicked!!!");
+});
+```
+
 ### non-null 단언 연산자(!)
+> ts의 기능으로써, 값이 확실하게 존재하고 null이 아닌 경우에만 사용해야 함
+```ts
+// !를 추가하여 절대 null이 되지 않는다고 ts에 약속한다.
+const btn = document.getElementById("btn")!;
+
+btn.addEventListener("click", function () {
+  console.log("clicked!!!");
+});
+```
 
 ### type assertion 타입 단언
+> 어떤 타입인지 구체적으로 ts에게 알려주고 싶을 때 사용한다.
+```ts
+// HtmlElement는 value라는 프로퍼티를 가지고 있지 않으므로 에러가 발생한다.
+const input1 = document.getElementById("myInput")!;
+input1.value = "aaaa";
 
-### 이벤트 다루기
-
-
-
+// 단순한 HtmlElement이 아닌 HTMLInputElement 이라고 선언한다. 
+// HTMLInputElement는 value라는 프로퍼티를 가지므로 에러가 발생하지 않는다.
+const input = document.getElementById("myInput")! as HTMLInputElement;
+input.value = "aaa";
+```
 
 
 
