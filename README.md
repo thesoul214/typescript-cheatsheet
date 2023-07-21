@@ -462,6 +462,24 @@ player1.score; // score는 private 프로퍼티로 클래스 외부에서는 접
 player1.secretMethod(); // secretMethod는 private 메소드로 클래스 외부에서는 접근 불가하므로 에러!!
 ```
 
+> 위의 예제를 단축 구문을 이용하여 간단하게 구현하는 것이 가능하다.
+```ts
+class Player {
+  constructor(
+    public readonly first: string,
+    public last: string,
+    private score: number
+  ){}
+
+  private secretMethod(): void {
+    console.log("secretMethod");
+  }
+}
+
+// public, private 프로퍼티를 초기화
+const player1 = new Game("Elton", "Steele", 0);
+```
+
 
 ------upto here
 ```ts
