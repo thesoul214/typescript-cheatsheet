@@ -5,7 +5,7 @@
 # Table of contents
 
 - [Types](#types)
-- [Dom](#Dom)
+- [Dom](#dom)
 - [Claases](#classes)
 
 ## Types
