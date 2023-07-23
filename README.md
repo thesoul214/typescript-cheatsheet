@@ -432,7 +432,7 @@ input.value = "aaa";
 
 public 제어자 : 클래스 내부, 외부에서 접근할 수 있는 프로퍼티나 메소드를 선언할 때 사용한다.
 
-private 제어자 : 클래스 내부에서만 접근할 수 있는 프로퍼티나 메소드를 선언할 때 사용한다.
+private 제어자 : 정의된 클래스 내부에서만 접근할 수 있는 프로퍼티나 메소드를 선언할 때 사용한다.
 
 ```ts
 class Player {
@@ -514,265 +514,129 @@ player1.score = 99;
 player1.score = "99"; // 타입 에러
 ```
 
+### protected 제어자
+
+정의된 클래스와 그로부터 상속한 모든 클래스에서 사용할 수 있는 프로퍼티나 메소드를 선언할 때 사용한다.
+```ts
+class Player {
+  constructor(
+    public first: string,
+    public last: string,
+    private _private_score: number,
+    protected _protected_score: number
+  ) {}
+}
+
+class SuperPlayer extends Player {
+  public isAdmin: boolean = true;
+  maxScore() {
+    // private 프로퍼티는 자식 클래스에서 사용할 수 없으므로 에러 발생!
+    this._private_score = 99999999;
+
+    // protected 프로퍼티는 자식 클래스에서 사용가능
+    this._protected_score = 99999999;
+  }
+}
+```
+
+### Static 제어자
+
+프로퍼티나 메소드를 개별 인스턴스가 아닌 해당 클래스 자체에 존재하게 하는 방식
+
+```ts
+class Helpers {
+  static PI: number = 3.14;
+  static calcCircunferance(diameter: number): number {
+    return this.PI * diameter;
+  }
+}
+console.log(Helpers.PI);
+console.log(2 * Helpers.PI);
+console.log(Helpers.calcCircunferance(10));
+
+// 인스턴스 h로는 static 프로퍼티에 접근할 수 없다.
+const h = new Helpers();
+h.PI
+```
+
+### Interfaces, Abstract Class
+
+Interface
+```ts
+interface Colorful {
+  color: string;
+}
+
+interface Printable {
+  print(): void;
+}
+
+// interface를 이용해서 class를 확장
+class Bike implements Colorful {
+  // Colorful Interface의 프로퍼티를 선언해야 한다.
+  constructor(public color: string) {}
+}
+
+class Jacket implements Colorful, Printable {
+  constructor(public brand: string, public color: string) {}
+
+  // Printable Interface에 정의된 print 메소드를 무조건 시행해야 한다.
+  print() {
+    console.log(`${this.color} ${this.brand} jacket`);
+  }
+}
+
+const bike1 = new Bike("red");
+const jacket1 = new Jacket("Prada", "black");
+```
+
+Abstract Class : 직접적으로 인스턴스화는 하지 못하지만, abstract 클래스는 패턴을 정의하고 상속하는 모든 자식 클래스에서 시행해야 하는 메소드를 정의하는 데 사용한다.
+```ts
+abstract class Employee {
+  constructor(public first: string, public last: string) {}
+  abstract getPay(): number;
+  greet() {
+    console.log("HELLO!");
+  }
+}
+
+class FullTimeEmployee extends Employee {
+  constructor(first: string, last: string, private salary: number) {
+    // Employee 클래스의 프로퍼티를 지정한다.
+    super(first, last);
+  }
+
+  // getPay 메소드는 Abstract이므로 자식 클래스에서 무조건 시행되어야 한다.
+  getPay(): number {
+    return this.salary;
+  }
+}
+
+class PartTimeEmployee extends Employee {
+  constructor(
+    first: string,
+    last: string,
+    private hourlyRate: number,
+    private hoursWorked: number
+  ) {
+    super(first, last);
+  }
+
+  // getPay 메소드는 Abstract이므로 자식 클래스에서 무조건 시행되어야 한다.
+  getPay(): number {
+    return this.hourlyRate * this.hoursWorked;
+  }
+}
+
+const betty = new FullTimeEmployee("Betty", "White", 95000);
+console.log(betty.getPay());
+
+const bill = new PartTimeEmployee("Bill", "Billerson", 24, 1100);
+console.log(bill.getPay());
+```
+
 
 ------upto here
-```ts
-  class Person {
-    private type: string | null = null;
-    protected age: number = 23;
-
-    constructor(public name: string, public userName: string, private email: string) {
-      this.name = name;
-      this.userName = userName;
-      this.email = email;
-    }
-
-    public printAge = () => {
-      console.log(this.age);
-      this.setType("Young guy");
-    }
-
-    private setType = (type: string) => {
-      this.type = type;
-      console.log(this.type);
-    }
-  }
-
-  const person = new Person("Francisco", "rmolinamir", "example@email.com");
-  person.printAge(); // Prints: 23
-  // person.setType("Cool guy"); // Not possible, since setType is a private member of Person.
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-## Private Members
-
-When a member is marked `private`, it cannot be accessed from outside of its containing class. **However, should a class `X` inherit properties from `Person`, class `A` will be able to access all private properties from `Person` (e.g. `type and setType`) due to being inside (or having access to) the protected scope**. More on what class inheritance is all about just below, but here"s an example;
-
-```ts
-  class Type {
-      private type: string | null = null;
-
-      setType = (type: string) => {
-        this.type = type;
-        console.log(this.type);
-      }
-  }
-
-  class Person extends Type {
-      protected age: number = 23;
-
-      constructor(public name: string, public userName: string, private email: string) {
-        super()
-        this.name = name;
-        this.userName = userName;
-        this.email = email;
-      }
-
-      public printAge = () => {
-        console.log(this.age);
-        this.setType("Young guy");
-      }
-  }
-
-  const person = new Person("Rob", "rm", "email");
-
-  person.setType("Cool guy"); // Prints: Cool guy
-
-  console.log(person); // Prints:
-  /**
-   * Person
-   *
-   * age: 23
-   * email: "email"
-   * name: "Rob"
-   * printAge: ƒ ()
-   * setType: ƒ (type)
-   * type: "Cool guy"
-   * userName: "rm"
-   *
-   */
-```
-
-If you want to prevent some properties or classes for being inherited, there is currently a proposal for the `final` keyword to be added.
-
-Links:
-
-- [Suggestion: Final keyword for classes and methods](https://github.com/Microsoft/TypeScript/issues/9264)
-- [Support final classes (non-subclassable)](https://github.com/Microsoft/TypeScript/issues/8306)
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-## Class Inheritance
-
-> TypeScript is a structural type system. When we compare two different types, regardless of where they came from, if the types of all members are compatible, then we say the types themselves are compatible.
-
-Classes may also be extended. By extending a class, we can declare another class that **inherits** all of the parent class members, for example:
-
-```ts
-  class Robert extends Person {
-    constructor(userName: string, email: string) {
-      super("Robert Molina", userName, email);
-      this.age = 25;
-      this.printAge()
-    }
-  }
-
-  const robert = new Robert("rmolinamir", "example@email.com");
-
-  console.log(robert);
-```
-
-The class Robert, would be able to access all of the Person members, and overwrite them if possible. **Note that `super` has to be called in the constructor of the Robert class, to execute any logic that may be stored inside the parent Person class" constructor. If not called, side effects may happen**.
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-## Getters & Setters
-
-TypeScript offers two great features for classes: `get`, and `set`. These are keywords that can be used to create a getter or setter function that can share the same name, and run whatever logic the programmer decides to pass into. Here"s an example:
-
-```ts
-  class Plant {
-    private _species: string = "Default";
-    get species() {
-      return this._species;
-    }
-    set species(value: string) {
-      if (value.length > 3) {
-        this._species = value;
-      } else {
-        this._species = "Default";
-      }
-    }
-    public getSpecies = () => this._species
-  }
-
-  const plant = new Plant();
-
-  console.log(plant.species); // Prints Default
-  plant.species = "AB";
-  console.log(plant.species); // Prints Default
-  plant.species = "Green Plant";
-  console.log(plant.species); // Prints Green Plant
-```
-
-To `set` *species*, we would do an expression such as `plant.species = "AB";`, and to `get` *species*, we would simply refer to the *species* property of the `plant` object.
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-## Static Properties & Methods
-
-Static properties and methods are class members that can be accessed from an outer scope of the `class`, **and** without having to instantiate the class either. Here"s an example:
-
-```ts
-  class Helpers {
-    static PI: number = 3.14;
-    static calcCircumference(diameter: number): number {
-      return this.PI * diameter;
-    }
-  }
-
-  console.log(Helpers.PI); // Prints: 3.14
-  console.log(2 * Helpers.PI); // Prints: 6.28
-  console.log(Helpers.calcCircumference(10)); // Prints: 31.42
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-## Abstract Classes
-
-> Abstract classes are base classes from which other classes may be derived. They may not be instantiated directly. Unlike an interface, an `abstract class` may contain implementation details for its members. **The `abstract` keyword is used to define abstract classes as well as abstract methods within an abstract class.**
-
-A great comparison and example for `abstract classes` is the React.js `Component` class, that we use to extend our own custom components, like the typical:
-
-```jsx
-  class App extends Component {
-    ...
-  }
-
-```
-
-The following is an example of a TypeScript abstract class definition:
-
-```ts
-  abstract class Project {
-    projectName: string = "Default";
-    budget: number = 0;
-    abstract changeName(name: string): void;
-    calcBudget() {
-      return this.budget * 2;
-    }
-  }
-```
-
-> Methods within an `abstract class` that are marked as `abstract` **do not contain an implementation and must be implemented in derived classes**. Abstract methods share a similar syntax to interface methods. Both define the signature of a method without including a method body. However, abstract methods must include the `abstract` keyword and may optionally include access modifiers.
-
-Think of `abstract` methods as methods that **won"t** be passed down to the inheritor classes.
-
-```ts
-  class ITProject extends Project {
-    changeName = (name: string) => {
-      this.projectName = name;
-    }
-  }
-
-  const newProject = new ITProject();
-
-  console.log(newProject) // Prints: { projectName: "Default", budget: 0, ...  }
-  newProject.changeName("Super IT Project");
-  console.log(newProject); // Prints: { projectName: ""Super IT Project", budget: 0, ...  }
-  newProject.budget = 1000;
-  console.log(newProject.budget); // Prints: 1000
-  console.log(newProject.calcBudget()); // Prints: 2000
-```
-
-[⬆️ Back to top](#table-of-contents)<br>
-
-<a id="private-constructors-singletons"></a>
-
-## Private Constructors & Singletons
-
-**My absolute favorite TypeScript feature.** At first glance you may realize that private constructors sound strange, you might ask yourself, what"s the point of making the constructor method private, resulting in the programmer not being able to call the new method, which then makes creating new instances of the class impossible? **Quite the contrary.**
-
-As the name of this section implies, a singleton is a class that can only be instantiated **once**, or in other words, a class that can only have **one** object, single(ton).
-
-In TypeScript 2.0 and onwards, we can create a static class member method that I usually define as `getInstance`. Since `getInstance` is a member of the class, it can access the constructor. Meaning, it can execute the constructor, then save the instance **as a member of the same class**. It is also possible to improve this further, and only allow `getInstance` to be executed only **once**, and avoid multiple instances of this class.
-
-If it already exists, we can always return the previously created instance, here"s an example with a class named `OnlyOne`:
-
-```ts
-  class OnlyOne {
-    private static instance: OnlyOne; // Member variable that will store the OnlyOne instance.
-
-    /**
-     * Read only property that can not be modified nor accessed outside of the class.
-     */
-    private constructor(public readonly name: string) {}
-
-    /**
-     * If get instance has not been initialized then it will construct a new OnlyOne class object,
-     * then store it into the instance property. If it has already been created then it will simply
-     * return the instance property.
-     * This assures that there will only ever be one instance.
-     */
-    static getInstance() {
-      if (!OnlyOne.instance) {
-        OnlyOne.instance = new OnlyOne("The Only One");
-      }
-      return OnlyOne.instance;
-    }
-  }
-
-  // const wrongWay = new OnlyOne("The Only One") // Not Possible
-  const rightWay = OnlyOne.getInstance();
-  const anotherWay = OnlyOne.getInstance(); // Works too.
-```
-
-In the above example, the variables `rightWay` and `anotherWay` would be pointers (think `C++`) to the same instance of `OnlyOne`. As you can see, to initiate `OnlyOne` we have to call `getInstance` instead of running the constructor from an outter scope of the `OnlyOne` class.
-
-Afterwards, it is possible to call any of the other public methods of the class. You"d use this for things like managing global toast messages inside an application, with a single class instance managing every message. Another common use case is when front-end code (e.g. React/Vue/Angular) speaks to a backend such as Amazon"s AWS or Google"s Firebase platforms. In that case you"d use the AWS or Firebase SDK inside the frontent to create a singleton class instance inside the client device. That singleton class instance would provide the frontend code with all kinds of utility methods, such as, for example, backend specific methods to store data from the frontend into some backend storage e.g. Firebase"s firestore database or Amazon"s S3 storage bucket.
-
-[⬆️ Back to top](#table-of-contents)<br>
 
 ---
 
