@@ -9,7 +9,7 @@ A set of TypeScript related notes used for quick reference. The cheatsheet conta
 # Table of contents
 
 - [Types](#types)
-- [Dom 다루기](#Dom 다루기)
+- [Dom](#Dom)
 - [Claases](#classes)
 
 ## Types
@@ -390,7 +390,7 @@ const pierre: Engineer = {
 };
 ```
 
-## Dom 다루기
+## Dom
 
 ### null 처리
 ```ts
