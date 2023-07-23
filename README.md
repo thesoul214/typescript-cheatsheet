@@ -477,7 +477,41 @@ class Player {
 }
 
 // public, private 프로퍼티를 초기화
-const player1 = new Game("Elton", "Steele", 0);
+const player1 = new Player("Elton", "Steele", 0);
+```
+
+### getter, setter
+```ts
+class Player {
+  constructor(
+    public readonly first: string,
+    public last: string,
+    private _score: number
+  ){}
+
+  get fullName(): string {
+    return `${this.first} ${this.last}`;
+  }
+
+  get score(): number {
+    return this._score;
+  }
+
+  // setter에는 반환 타입을 지정할 필요가 없다.
+  set score(newScore: number) {
+    if (newScore < 0) {
+      throw new Error("Score cannot be negative!");
+    }
+    this._score = newScore;
+  }
+}
+
+const player1 = new Player("Elton", "Steele", 100);
+console.log(player1.fullName); // prints Elton Steele
+
+// setter를 이용하여 private 프로퍼티인 _socre값을 갱신
+player1.score = 99;
+player1.score = "99"; // 타입 에러
 ```
 
 
