@@ -9,7 +9,7 @@ A set of TypeScript related notes used for quick reference. The cheatsheet conta
 # Table of contents
 
 - [Types](#types)
-- [Dom](#types)
+- [Dom 다루기](#Dom 다루기)
 - [Claases](#classes)
 
 ## Types
