@@ -2,10 +2,6 @@
   <img src="https://raw.githubusercontent.com/rmolinamir/typescript-cheatsheet/master/TypeScript.png" alt="TypeScript"/>
 </p>
 
-# TypeScript Cheatsheet
-
-A set of TypeScript related notes used for quick reference. The cheatsheet contains references to types, classes, decorators, and many other TypeScript related subjects.
-
 # Table of contents
 
 - [Types](#types)
