@@ -6,6 +6,12 @@
 
 A set of TypeScript related notes used for quick reference. The cheatsheet contains references to types, classes, decorators, and many other TypeScript related subjects.
 
+# Table of contents
+
+- [Types](#types)
+- [Dom](#types)
+- [Claases](#classes)
+
 ## Types
 
 ### String, Number, Boolean
