@@ -800,9 +800,9 @@ class Company {
 function printName(entity: User | Company) {
   if (entity instanceof User) {
     return "user";
-  } else {
-    return "company";
   }
+
+  return "company";
 }
 
 const user1 = new User("kim")
