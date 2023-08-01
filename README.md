@@ -744,7 +744,7 @@ videos.add({title: "title", creator: "kim", resolution: "1280"});
 
 ## Narrowing
 
-> 주로 명확하지 않은 타입(주로 유니온 타입)을 보다 명확하게 타입을 좁히기 위해 사용
+> 주로 명확하지 않은 타입(주로 유니온 타입)을 보다 명확하게 타입을 지정하기 위해(좁이기 위해) 사용
 
 ------upto here
 
