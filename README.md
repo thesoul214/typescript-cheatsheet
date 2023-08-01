@@ -8,7 +8,7 @@
 - [Dom](#dom)
 - [Claases](#classes)
 - [Generics](#generics)
-- [Type Narrowing(타입 좁히기)](#arrowing)
+- [Type Narrowing(타입 좁히기)](#narrowing)
 
 ## Types
 
