@@ -680,7 +680,7 @@ getRandomElement([1, 2, 3, 4]);
 > extends 키워드를 이용하여 제네릭의 타입을 제한해준다. 
 
 ```ts
-// T와 U가 항상 객체여야 하도록 제한한다.
+// T와 U가 항상 객체이어야 한다.
 function merge<T extends object, U extends object>(object1: T, object2: U) {
   return {
     ...object1,
