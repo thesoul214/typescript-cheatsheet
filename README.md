@@ -637,6 +637,108 @@ const bill = new PartTimeEmployee("Bill", "Billerson", 24, 1100);
 console.log(bill.getPay());
 ```
 
+## 제네릭(Generics)
+
+> 여러 타입에서 사용할 수 있는 함수나 클래스를 정의할 수 있게 해주는 특수 기능
+
+```ts
+// 제네릭이 없는 경우, 다양한 타입의 파라미터를 지원하는 함수를 복수개 정의해야 한다.
+function numberIdentity(item: number): number {
+  return item;
+}
+function stringIdentity(item: string): string {
+  return item;
+}
+function booleanIdentity(item: boolean): boolean {
+  return item;
+}
+
+// 제네릭을 이용하면 하나의 함수만 정의해도 된다.
+function identity<T>(item: T): T {
+  return item;
+}
+
+console.log(identity<number>(7)); // prints 7
+console.log(identity<string>("hello")); // prints hello
+
+// 또 다른 예제
+function getRandomElement<T>(list: T[]): T {
+  const randIdx = Math.floor(Math.random() * list.length);
+  return list[randIdx];
+}
+
+getRandomElement<string>(["a", "b", "c"]);
+getRandomElement<number>([5, 6, 21, 354, 567, 234, 654]);
+
+// <number>라고 적어주지 않아도 ts가 자동으로 T가 number인 것을 추론할 수 있다.
+getRandomElement([1, 2, 3, 4]);
+```
+
+### 타입 제한하기 (extends 키워드)
+
+> extends 키워드를 이용하여 제네릭의 타입을 제한해준다. 
+
+```ts
+// T와 U가 항상 객체여야 하도록 제한한다.
+function merge<T extends object, U extends object>(object1: T, object2: U) {
+  return {
+    ...object1,
+    ...object2,
+  };
+}
+
+// 또 다른 예제
+interface Lengthy {
+  length: number;
+}
+
+function printDoubleLength<T extends Lengthy>(thing: T): number {
+  return thing.length * 2;
+}
+
+printDoubleLength("asdasd");
+printDoubleLength(234); // 숫자 234에는 length함수나 프로퍼티가 존재하지 않으므로 에러 발생
+```
+
+### 파라미터의 기본 타입 지정
+```ts
+function makeEmptyArray<T = number>(): T[] {
+  return [];
+}
+
+const nums = makeEmptyArray(); // 아무것도 지정하지 않았으므로 T는 number가 된다.
+const bools = makeEmptyArray<boolean>();
+```
+
+### 제네릭 클래스
+```ts
+interface Song {
+  title: string;
+  artist: string;
+}
+
+interface Video {
+  title: string;
+  creator: string;
+  resolution: string;
+}
+
+class Playlist<T> {
+  public queue: T[] = [];
+  add(el: T) {
+    this.queue.push(el);
+  }
+}
+
+const songs = new Playlist<Song>();
+const videos = new Playlist<Video>();
+
+// songs의 queue에는 Song타입의 객체가 추가되어야 하므로 에러 발생
+songs.add({title: "title", creator: "kim", resolution: "1280"});
+
+// videos queue에는 Video타입의 객체가 추가되었으므로 정상동작
+videos.add({title: "title", creator: "kim", resolution: "1280"});
+```
 
 ------upto here
 
