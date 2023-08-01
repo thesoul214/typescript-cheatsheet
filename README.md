@@ -737,7 +737,7 @@ const videos = new Playlist<Video>();
 // songs의 queue에는 Song타입의 객체가 추가되어야 하므로 에러 발생
 songs.add({title: "title", creator: "kim", resolution: "1280"});
 
-// videos queue에는 Video타입의 객체가 추가되었으므로 정상동작
+// videos queue에 Video타입의 객체가 추가되었으므로 정상동작
 videos.add({title: "title", creator: "kim", resolution: "1280"});
 ```
 
