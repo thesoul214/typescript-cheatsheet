@@ -8,6 +8,7 @@
 - [Dom](#dom)
 - [Claases](#classes)
 - [Generics](#generics)
+- [Type Narrowing(타입 좁히기)](#arrowing)
 
 ## Types
 
@@ -740,6 +741,10 @@ songs.add({title: "title", creator: "kim", resolution: "1280"});
 // videos queue에 Video타입의 객체가 추가되었으므로 정상동작
 videos.add({title: "title", creator: "kim", resolution: "1280"});
 ```
+
+## Narrowing
+
+> 주로 명확하지 않은 타입(주로 유니온 타입)을 보다 명확하게 타입을 좁히기 위해 사용
 
 ------upto here
 
