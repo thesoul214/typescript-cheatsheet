@@ -744,7 +744,88 @@ videos.add({title: "title", creator: "kim", resolution: "1280"});
 
 ## Narrowing
 
-> 주로 명확하지 않은 타입(주로 유니온 타입)을 보다 명확하게 타입을 지정하기 위해(좁이기 위해) 사용
+> 명확하지 않은 타입(주로 유니온 타입)을 보다 명확하게 타입을 지정하기 위해(좁이기 위해) 사용
+
+
+### in 연산자 사용
+```ts
+interface Movie {
+  title: string;
+  duration: number;
+}
+
+interface TVShow {
+  title: string;
+  numEpisodes: number;
+  episodeDuration: number;
+}
+
+function getRuntime(media: Movie | TVShow) {
+  if ("numEpisodes" in media) {
+    // media는 numEpisodes 프로퍼티를 가지는 TVShow 타입으로 인식된다.
+    return media.numEpisodes * media.episodeDuration;
+  }
+
+  // media는 Movie타입으로 인식된다.
+  return media.duration;
+}
+
+console.log(getRuntime({ title: "Amadeus", duration: 140 })); // prints 140
+console.log(getRuntime({ title: "Spongebob", numEpisodes: 80, episodeDuration: 30 })); // prints 2400
+```
+
+### instanceof 연산자 사용
+
+> instanceof 연산자란, 객체가 특정 클래스(또는 해당 클래스를 상속하고 있는 클래스)가 인스턴스화 된 것인지 확인하는 자바스크립트 연산자
+
+> {객체} instanceof {클래스}
+
+```ts
+function printFullDate(date: string | Date) {
+  if (date instanceof Date) {
+    console.log(date.toUTCString());
+  } else {
+    console.log(new Date(date).toUTCString());
+  }
+}
+
+// 또 다른 예제
+class User {
+  constructor(public username: string) {}
+}
+class Company {
+  constructor(public name: string) {}
+}
+
+function printName(entity: User | Company) {
+  if (entity instanceof User) {
+    return "user";
+  } else {
+    return "company";
+  }
+}
+
+const user1 = new User("kim")
+// user1은 User 클래스가 인스턴스화 된 것이므로 user를 출력한다.
+printName(user1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ------upto here
 
