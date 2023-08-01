@@ -7,6 +7,7 @@
 - [Types](#types)
 - [Dom](#dom)
 - [Claases](#classes)
+- [Generics](#generics)
 
 ## Types
 
@@ -637,7 +638,7 @@ const bill = new PartTimeEmployee("Bill", "Billerson", 24, 1100);
 console.log(bill.getPay());
 ```
 
-## 제네릭(Generics)
+## Generics
 
 > 여러 타입에서 사용할 수 있는 함수나 클래스를 정의할 수 있게 해주는 특수 기능
 
