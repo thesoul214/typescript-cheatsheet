@@ -9,6 +9,7 @@
 - [Claases](#classes)
 - [Generics](#generics)
 - [Type Narrowing(타입 좁히기)](#narrowing)
+- [Declarations(타입 선언)](#declarations)
 
 ## Types
 
@@ -893,6 +894,36 @@ function getFarmAnimalSound(animal: FarmAnimal) {
   }
 }
 ```
+
+## Declarations
+
+> 타입 선언 파일은 TypeScript 생태계에서 제3자 JavaScript 라이브러리로 작업하는 방법이다.
+
+> *.d.ts의 파일 형식을 지니며, 오직 타입 정보만을 포함하고 있다.
+
+### 제3자 라이브러리가 타입 선언 파일을 기본적으로 제공하는 경우(예: axios)
+
+`npm install axios`로 라이브러리를 설치하면 `import axios from "axios";` 만으로 바로 사용하는 것이 가능하다.
+
+axios의 타입 선언 파일은 `node_modules/axios/index.d.ts`에 존재한다.
+
+### 제3자 라이브러리가 타입 선언 파일을 제공하지 않는 경우(예: lodash)
+
+`npm install lodash`로 라이브러리를 설치해도 타입 선언 파일이 존재하지 않기 때문에 바로 사용할 수 없다.
+
+이런 경우에는 `npm install --save-dev @types/lodash` 명령어를 실행하여 lodash라이브러리의 타입 선언 파일을 다운로드 해야 한다.
+
+`@types/lodash`란, 타입 선언 파일을 모아둔 레포지토리에서(https://github.com/DefinitelyTyped/DefinitelyTyped)에서 lodash 라이브러리의 타입 선언 파일을 다운로드 한다는 의미이다.
+
+다운로드 한 타입 선언 파일은 `node_modules/@types/lodash/common/collection.d.ts`에 존재한다.
+
+
+
+
+
+
+
+
 
 
 
