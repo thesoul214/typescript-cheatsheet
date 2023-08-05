@@ -913,7 +913,7 @@ axios의 타입 선언 파일은 `node_modules/axios/index.d.ts`에 존재한다
 
 이런 경우에는 `npm install --save-dev @types/lodash` 명령어를 실행하여 lodash라이브러리의 타입 선언 파일을 다운로드 해야 한다.
 
-`@types/lodash`란, 타입 선언 파일을 모아둔 레포지토리에서(https://github.com/DefinitelyTyped/DefinitelyTyped)에서 lodash 라이브러리의 타입 선언 파일을 다운로드 한다는 의미이다.
+`@types/lodash`란, 타입 선언 파일을 모아둔 레포지토리 (https://github.com/DefinitelyTyped/DefinitelyTyped) 에서 lodash 라이브러리의 타입 선언 파일을 다운로드 한다는 의미이다.
 
 다운로드 한 타입 선언 파일은 `node_modules/@types/lodash/common/collection.d.ts`에 존재한다.
 
