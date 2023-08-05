@@ -810,10 +810,89 @@ const user1 = new User("kim")
 printName(user1)
 ```
 
+### 타입 명제(Type Predicates)
 
+> 타입을 판단하는 함수, {parameter name} is {type}의 형태
 
+```ts
+interface Cat {
+  name: string;
+  numLives: number;
+}
+interface Dog {
+  name: string;
+  breed: string;
+}
 
+// animal is Cat -> 만약 이 함수가 true를 반환한다면 파라미터 animal은 cat타입이다. 라는 의미
+function isCat(animal: Cat | Dog): animal is Cat {
+  return (animal as Cat).numLives !== undefined;
+}
 
+function makeNoise(animal: Cat | Dog): string {
+  if (isCat(animal)) {
+    // 타입스크립트는 animal을 Cat타입이라고 간주한다.
+    animal;
+    return "Meow";
+  } else {
+    // 타입스크립트는 animal을 Dog타입이라고 간주한다.
+    animal;
+    return "Woof!";
+  }
+}
+```
+
+### 소진검사(exhaustiveness check)와 never
+
+> case문 등에서 모든 경우를 제대로 처리하지 않았음을 타입스크립트가 알려주도록 하는 방법
+
+```ts
+interface Rooster {
+  name: string;
+  weight: number;
+  age: number;
+  kind: "rooster";
+}
+
+interface Cow {
+  name: string;
+  weight: number;
+  age: number;
+  kind: "cow";
+}
+
+interface Pig {
+  name: string;
+  weight: number;
+  age: number;
+  kind: "pig";
+}
+
+interface Sheep {
+  name: string;
+  weight: number;
+  age: number;
+  kind: "sheep";
+}
+
+type FarmAnimal = Pig | Rooster | Cow | Sheep;
+
+function getFarmAnimalSound(animal: FarmAnimal) {
+  switch (animal.kind) {
+    case "pig":
+      return "Oink!";
+    case "cow":
+      return "Moooo!";
+    case "rooster":
+      return "Cockadoodledoo!";
+    default:
+      // never 타입에는 어떤 값도 할당할 수 없으므로 에러가 발생한다.
+      // 해당 예제에서는 case문으로 Sheep타입을 제대로 처리하지 않았으므로 에러 발생
+      const _exhaustiveCheck: never = animal;
+      return _exhaustiveCheck;
+  }
+}
+```
 
 
 
