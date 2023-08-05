@@ -897,7 +897,7 @@ function getFarmAnimalSound(animal: FarmAnimal) {
 
 ## Declarations
 
-> 타입 선언 파일은 TypeScript 생태계에서 제3자 JavaScript 라이브러리로 작업하는 방법이다.
+> 타입 선언 파일은 TypeScript 생태계에서 제3자 JavaScript 라이브러리를 사용하기 위해 필요한 파일이다.
 
 > *.d.ts의 파일 형식을 지니며, 오직 타입 정보만을 포함하고 있다.
 
