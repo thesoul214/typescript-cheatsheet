@@ -923,7 +923,7 @@ axios의 타입 선언 파일은 `node_modules/axios/index.d.ts`에 존재한다
 
 ### export
 
-export를 추가함으로써 간단하게 내보낼 수 있다.(다른 파일에서 사용 가능)
+export를 추가함으로써 다른 파일에서 사용 가능하도록 간단하게 내보낼 수 있다.
 
 ```ts
 // 파일 A
