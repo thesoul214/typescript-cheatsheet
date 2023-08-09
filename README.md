@@ -945,7 +945,7 @@ export const pi = 3.14;
 import { add, sample as randomSample, pi } from "./파일 A";
 ```
 
-### default export
+### export default
 
 > 기본 내보내기 기능으로, 파일이나 모듈마다 하나만 정의할 수 있다.
 
