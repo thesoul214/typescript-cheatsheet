@@ -11,7 +11,7 @@
 - [Type Narrowing(타입 좁히기)](#narrowing)
 - [Declarations(타입 선언)](#declarations)
 - [Modules](#modules)
-- [webpack](#webpack)
+- [Webpack](#webpack)
 
 ## Types
 
