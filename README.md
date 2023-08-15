@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rmolinamir/typescript-cheatsheet/master/TypeScript.png" alt="TypeScript"/>
+  <img src="https://github.com/thesoul214/typescript-cheatsheet/blob/master/attached_images/TypeScript.png" alt="TypeScript"/>
 </p>
 
 # Table of contents
@@ -971,10 +971,132 @@ export function userHelper() {
 import User, { userHelper } from "./파일 A";
 ```
 
+## Webpack
+
+<p align="center">
+  <img src="https://github.com/thesoul214/typescript-cheatsheet/blob/master/attached_images/webpack.png" alt="webpack"/>
+</p>
+
+webpack은 의존성을 가진 수십, 수백개의 파일(에셋)을 브라우저에 넣을 수 있는 작은 단위로 번들링 해주는 도구.
+
+다양한 에셋(js, sass, png, svg등)을 모아 정적 에셋으로 번들링한다. 
+
+> 번들링이란 종속성이 존재하는 여러 개의 파일을 하나의 파일로 묶어주는 것
+
+### 의존성 설치 
+ts-loader는 typescript와 webpack사이의 중간자 역할을 한다. 
+
+typescript를 호출해서 javascript로 컴파일링 한 후, 이를 모두 번들링하게 될 webpack으로 전달하는 역할
 
 
+### 설정파일(webpack.config.js)
 
+```js
+module.exports = {
+  entry:"./src/app.ts",
+  output: {
+      filename:"./bundle.js"
+  },
+  resolve: {
+      extensions: ["*",".ts",".tsx",".js"]
+  },
+  module:{
+      rules: [
+          {test:/\.tsx?$/, loader:"ts-loader"}
+      ]
+  }
+};
+```
 
+entry: webpack에게 번들링을 시작할 어플리케이션의 시작점을 지정
+
+module: .ts 혹은 .tsx로 끝나는 파일이 있을 시, ts-loader를 사용하라는 규칙을 지정
+
+resolve: 확장자 생략 설정
+
+output: webpack으로 생성하려는 출력에 관한 설정
+
+### 소스맵
+압축된 번들 코드를 디버깅하고 이해하는데 도움을 준다.
+
+컴파일 하기 전의 ts파일을 구조 그대로 브라우저에서 디버깅 할 수 있도록 해준다.
+
+- tsconfig.json에서 sourceMap을 true로 설정
+- webpack.config.js에서 devtool을 inline-source-map으로 설정
+  - 해당 소스 맵을 추출해 최종 번들에 포함하도록 설정
+
+### 개발 서버 설정 예제 (webpack.dev.js)
+
+- webpack.config.js에 mode를 development로 설정
+  - webpack으로 번들링된 js파일을 경량화 하지 않는다.
+- webpack-dev-server 설치 (npm install --save-dev webpack-dev-server)
+  - 개발 과정 동안 번들링을 백그라운드에서 처리하여 매번 별도의 번들 파일로 만들어 dist에 출력하지 않아도 된다.
+  - webpack.config.js에 output내에 publicPath를 /dist로 추가
+
+```js
+const path = require("path");
+module.exports = {
+  mode: "development",
+  entry: "./src/index.ts",
+  devtool: "inline-source-map",
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "./"),
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/dist",
+  },
+};
+```
+
+### 프로덕션 서버 설정 예제 (webpack.prod.js)
+
+- webpack.config.js에 mode를 production으로 설정
+- npm install --save-dev clean-webpack-plugin
+  - 빌드할 때마다 출력 폴더가 자동으로 비워지도록 설정
+
+```js
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require("path");
+module.exports = {
+  mode: "production",
+  entry: "./src/index.ts",
+  devtool: "inline-source-map",
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/dist",
+  },
+  plugins: [new CleanWebpackPlugin()],
+};
+```
 
 
 
