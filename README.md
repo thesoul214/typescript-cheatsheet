@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/thesoul214/typescript-cheatsheet/blob/master/attached_images/TypeScript.png" alt="TypeScript"/>
+  <img src="https://github.com/thesoul214/typescript-cheatsheet/blob/master/lib/attached_images/TypeScript.png" alt="TypeScript"/>
 </p>
 
 # Table of contents
@@ -10,6 +10,8 @@
 - [Generics](#generics)
 - [Type Narrowing(타입 좁히기)](#narrowing)
 - [Declarations(타입 선언)](#declarations)
+- [Modules](#modules)
+- [webpack](#webpack)
 
 ## Types
 
@@ -974,7 +976,7 @@ import User, { userHelper } from "./파일 A";
 ## Webpack
 
 <p align="center">
-  <img src="https://github.com/thesoul214/typescript-cheatsheet/blob/master/attached_images/webpack.png" alt="webpack"/>
+  <img src="https://github.com/thesoul214/typescript-cheatsheet/blob/master/lib/attached_images/webpack.png" alt="webpack"/>
 </p>
 
 webpack은 의존성을 가진 수십, 수백개의 파일(에셋)을 브라우저에 넣을 수 있는 작은 단위로 번들링 해주는 도구.
